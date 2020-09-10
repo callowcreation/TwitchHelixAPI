@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0733171B-0552-481D-BDD2-6FFB887D3336}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TwitchHelixAPI</RootNamespace>
+    <AssemblyName>TwitchHelixAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Unity\TwitchUnityIRC\Assets\UniTwitchIRC\Plugins\TwitchHelixAPI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\..\Unity\TwitchUnityIRC\Assets\UniTwitchIRC\Plugins\TwitchHelixAPI\TwitchHelixAPI.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataIO.cs" />
+    <Compile Include="Payloads\Date.cs" />
+    <Compile Include="Payloads\CodeStatus.cs" />
+    <Compile Include="Payloads\Pagination.cs" />
+    <Compile Include="Payloads\IPayload.cs" />
+    <Compile Include="Payloads\DateRange.cs" />
+    <Compile Include="Payloads\Payload.cs" />
+    <Compile Include="Payloads\Response\GetTopGames.cs" />
+    <Compile Include="Payloads\Response\RedeemCode.cs" />
+    <Compile Include="Payloads\Response\GetCodeStatus.cs" />
+    <Compile Include="Payloads\Response\CreateEntitlementGrantsUploadURL.cs" />
+    <Compile Include="Payloads\Response\GetClips.cs" />
+    <Compile Include="Payloads\Response\StartCommercial.cs" />
+    <Compile Include="Payloads\Response\GetGameAnalytics.cs" />
+    <Compile Include="Payloads\Response\GetBitsLeaderboard.cs" />
+    <Compile Include="Payloads\Response\GetCheermotes.cs" />
+    <Compile Include="Payloads\Response\GetExtensionAnalytics.cs" />
+    <Compile Include="Payloads\Response\GetExtensionTransactions.cs" />
+    <Compile Include="Payloads\Response\CreateStreamMarker.cs" />
+    <Compile Include="Payloads\Response\CreateClip.cs" />
+    <Compile Include="Payloads\Response\GetUsers.cs" />
+    <Compile Include="TokenResponse.cs" />
+    <Compile Include="TokenRequest.cs" />
+    <Compile Include="Helix.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Authentication.cs" />
+    <Compile Include="Validate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
