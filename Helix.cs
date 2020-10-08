@@ -36,11 +36,26 @@ namespace TwitchHelixAPI
 
         static RNGCryptoServiceProvider s_RngCsp = new RNGCryptoServiceProvider();
 
+        /// <summary>
+        /// Get an endpoint based on the url and scopes requested within the access token
+        /// </summary>
+        /// <typeparam name="T">Type of data structure to parse JSON</typeparam>
+        /// <param name="url">A fully qualified url endpoint</param>
+        /// <param name="method">GET, PUT, POST</param>
+        /// <param name="clientId">The client id provided for the app</param>
+        /// <param name="accessToken">Access token with scopes to match the endpoint</param>
+        /// <param name="makeRequest">The method used to get the data</param>
+        /// <returns>Type of data structure to parse JSON</returns>
         public static Task<T> GetEndpoint<T>(string url, string method, string clientId, string accessToken, Func<string, string, string, string, Task<T>> makeRequest)
         {
             return makeRequest(url, method, clientId, accessToken);
         }
 
+        /// <summary>
+        /// Has the token expierd
+        /// </summary>
+        /// <param name="expires">Date string</param>
+        /// <returns></returns>
         public static bool IsExpired(string expires)
         {
             DateTime date = DateTime.Parse(expires);
@@ -48,12 +63,22 @@ namespace TwitchHelixAPI
             return compare == -1;
         }
 
+
+        /// <summary>
+        /// Make a request to get an access token
+        /// </summary>
+        /// <param name="path">Path to save encrypted token</param>
+        /// <param name="tokenRequest">Propertirs required to make a valid token request</param>
+        /// <param name="makeRequest">The method used to get the data</param>
+        /// <param name="openBrowser">The method to open the web browser</param>
+        /// <returns> Expected token response properties containing the tokens and expire time</returns>
+
         public async static Task<TokenResponse> MakeTokenRequest(string path, TokenRequest tokenRequest, Func<Dictionary<string, string>, Task<TokenResponse>> makeRequest, Action<string> openBrowser)
         {
             if (tokenRequest.forceVerify == false)
             {
                 TokenResponse tokenResponse = DataIO.Load<TokenResponse>(path);
-                if (tokenResponse != null)
+                if (tokenResponse != null && tokenResponse.refresh_token != null)
                 {
                     DateTime date = DateTime.Parse(tokenResponse.expires);
                     int compare = DateTime.Compare(date, DateTime.Now);
@@ -66,7 +91,7 @@ namespace TwitchHelixAPI
             }
 
             byte[] random = new byte[32];
-            s_RngCsp.GetBytes(random);
+            Helix.s_RngCsp.GetBytes(random);
 
             string codeVerifier = Convert.ToBase64String(random);
             string codeChallenge;
@@ -97,7 +122,7 @@ namespace TwitchHelixAPI
                 string url = $"https://id.twitch.tv/oauth2/authorize?" +
                     $"client_id={tokenRequest.clientId}" +
                     $"&redirect_uri={tokenRequest.redirectUrl}" +
-                    $"&response_type={CODE_RESPONSE_TYPE}" +
+                    $"&response_type={Helix.CODE_RESPONSE_TYPE}" +
                     $"&scope={scope}" +
                     $"&state={state}" +
                     $"&force_verify={tokenRequest.forceVerify.ToString().ToLower()}";
@@ -137,18 +162,30 @@ namespace TwitchHelixAPI
             }
         }
 
-        public static async Task<TokenResponse> RefreshAccessToken(string clientId, string clientSecret, string refresh_token, Func<Dictionary<string, string>, Task<TokenResponse>> makeRequest)
+        /// <summary>
+        /// Call to refresh access token
+        /// </summary>
+        /// <param name="clientId">The client id provided for the app</param>
+        /// <param name="clientSecret">The client secret provided for the app</param>
+        /// <param name="refreshToken">The refresh token recieved from making an access token request</param>
+        /// <param name="makeRequest">The method used to get the data</param>
+        /// <returns> Expected token response properties containing the tokens and expire time</returns>
+        public static async Task<TokenResponse> RefreshAccessToken(string clientId, string clientSecret, string refreshToken, Func<Dictionary<string, string>, Task<TokenResponse>> makeRequest)
         {
             return await makeRequest.Invoke(new Dictionary<string, string>
             {
                 { "client_id", clientId },
                 { "client_secret", clientSecret },
-                { "refresh_token", refresh_token },
+                { "refresh_token", refreshToken },
                 { "grant_type", "refresh_token" }
             });
         }
 
-        // From https://github.com/IdentityModel/IdentityModel2 (src/IdentityModel/Base64Url.cs)
+        /// <summary>
+        /// From https://github.com/IdentityModel/IdentityModel2 (src/IdentityModel/Base64Url.cs)
+        /// </summary>
+        /// <param name="buffer">The hash value for the specified byte array</param>
+        /// <returns></returns>
         protected static string Base64UrlEncode(byte[] buffer)
         {
             var s = Convert.ToBase64String(buffer); // Standard base64 encoder

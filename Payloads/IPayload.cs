@@ -16,12 +16,17 @@
 */
 #endregion
 
-using System;
-
 namespace TwitchHelixAPI.Payloads
 {
+    /// <summary>
+    /// A response that has a data array
+    /// <typeparam name="T">Type of data to expect</typeparam>
+    /// </summary>
     public interface IPayload<T>
     {
+        /// <summary>
+        /// The response has a JSON payload with a data field containing an array
+        /// </summary>
         T[] data { get; set; }
     }
 }

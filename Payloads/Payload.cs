@@ -20,9 +20,17 @@ using System;
 
 namespace TwitchHelixAPI.Payloads
 {
+    /// <summary>
+    /// A response that has a data array
+    /// </summary>
+    /// <typeparam name="T">Type of data to expect</typeparam>
     [Serializable]
     public class Payload<T> : IPayload<T>
     {
+        /// <summary>
+        /// Expected data type
+        /// <para>Each response has an array of the requested item even if only a single item is returned</para>
+        /// </summary>
         public T[] data { get; set; }
     }
 }

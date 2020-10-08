@@ -20,6 +20,9 @@ using System;
 
 namespace TwitchHelixAPI.Payloads.Response
 {
+    /// <summary>
+    /// Gets the status of one or more provided Bits codes
+    /// </summary>
     [Serializable]
     public class GetCodeStatus : Payload<CodeStatus>{ }
 }

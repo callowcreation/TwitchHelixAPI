@@ -20,9 +20,15 @@ using System;
 
 namespace TwitchHelixAPI.Payloads
 {
+    /// <summary>
+    /// Pagination data type with a cursor property
+    /// </summary>
     [Serializable]
     public class Pagination
     {
+        /// <summary>
+        /// Cursor indicating when to start the next query to return more data
+        /// </summary>
         public string cursor { get; set; }
     }
 }

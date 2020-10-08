@@ -20,6 +20,9 @@ using System;
 
 namespace TwitchHelixAPI.Payloads.Response
 {
+    /// <summary>
+    /// Redeems one or more provided Bits codes to the authenticated Twitch user. 
+    /// </summary>
     [Serializable]
     public class RedeemCode : Payload<CodeStatus>{ }
 }

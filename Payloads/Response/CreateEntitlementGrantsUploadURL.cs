@@ -20,12 +20,21 @@ using System;
 
 namespace TwitchHelixAPI.Payloads.Response
 {
+    /// <summary>
+    /// A URL where you can upload a manifest file and notify users that they have an entitlement.
+    /// </summary>
     [Serializable]
     public class CreateEntitlementGrantsUploadURL : Payload<CreateEntitlementGrantsUploadURL.EntitlementGrantsUploadURL>
     {
+        /// <summary>
+        /// A URL where you can upload a manifest file and notify users that they have an entitlement.
+        /// </summary>
         [Serializable]
         public class EntitlementGrantsUploadURL
         {
+            /// <summary>
+            /// The URL where you will upload the manifest file. This is the URL of a pre-signed S3 bucket. Lease time: 15 minutes.
+            /// </summary>
             public string url { get; set; }
         }
     }

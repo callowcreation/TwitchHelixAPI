@@ -22,8 +22,17 @@ using System.Text;
 
 namespace TwitchHelixAPI
 {
+    /// <summary>
+    /// File system storage
+    /// </summary>
     public static class DataIO
     {
+        /// <summary>
+        /// Save object data to the file system
+        /// </summary>
+        /// <typeparam name="T">Type to serialize</typeparam>
+        /// <param name="path">Full path and file name</param>
+        /// <param name="response">Object to save</param>
         public static void Save<T>(string path, T response)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(response));
@@ -33,6 +42,12 @@ namespace TwitchHelixAPI
             //File.WriteAllText(path, Newtonsoft.Json.JsonConvert.SerializeObject(response));
         }
 
+        /// <summary>
+        /// Load an object from the file system
+        /// </summary>
+        /// <typeparam name="T">Type to deserialize</typeparam>
+        /// <param name="path">Full path and file name</param>
+        /// <returns></returns>
         public static T Load<T>(string path)
         {
             if (File.Exists(path) == false) return default(T);

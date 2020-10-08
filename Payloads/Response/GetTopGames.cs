@@ -20,15 +20,32 @@ using System;
 
 namespace TwitchHelixAPI.Payloads.Response
 {
+    /// <summary>
+    /// Games sorted by number of current viewers on Twitch, most popular first.
+    /// </summary>
     [Serializable]
     public class GetTopGames : Payload<GetTopGames.TopGame>
     {
+        /// <summary>
+        /// Game name and id and box art url
+        /// </summary>
         [Serializable]
         public class TopGame
         {
+            /// <summary>
+            /// Game ID.
+            /// </summary>
             public string id { get; set; }
+
+            /// <summary>
+            /// Game name.
+            /// </summary>
             public string name { get; set; }
-            public string box_art_url { get; set; }
+
+            /// <summary>
+            /// Template URL for the game’s box art.
+            /// </summary>
+            public string boxArtUrl { get; set; }
         }
     }
 }

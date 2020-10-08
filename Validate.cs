@@ -20,12 +20,30 @@ using System;
 
 namespace TwitchHelixAPI
 {
+    /// <summary>
+    /// Validation response object
+    /// </summary>
     [Serializable]
     public struct Validate
     {
+        /// <summary>
+        /// Application client id
+        /// </summary>
         public string client_id;
+
+        /// <summary>
+        /// Username or channel name
+        /// </summary>
         public string login;
+
+        /// <summary>
+        /// Scopes matching the current access token
+        /// </summary>
         public string[] scopes;
+
+        /// <summary>
+        /// The user id for the username/channel name
+        /// </summary>
         public string user_id;
     }
 }

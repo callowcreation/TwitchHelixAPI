@@ -20,13 +20,26 @@ using System;
 
 namespace TwitchHelixAPI.Payloads.Response
 {
+    /// <summary>
+    /// Programmatically created clip
+    /// </summary>
     [Serializable]
     public class CreateClip : Payload<CreateClip.Clip>
     {
+        /// <summary>
+        /// Programmatically created clip
+        /// </summary>
         [Serializable]
         public class Clip
         {
+            /// <summary>
+            /// ID of the clip that was created.
+            /// </summary>
             public string id { get; set; }
+
+            /// <summary>
+            /// URL of the edit page for the clip.
+            /// </summary>
             public string edit_url { get; set; }
         }
     }
